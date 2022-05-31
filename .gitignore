@@ -1,1 +1,3 @@
 *.retry
+inventory/ins-kafka*
+playbook/ins-kafka*

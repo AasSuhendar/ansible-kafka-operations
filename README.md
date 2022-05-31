@@ -33,8 +33,7 @@ There are several type tags :
 - kafka_ACL_list
 - etc
 
-
-- Run Playbook
+## Run Playbook
 ```
 ansible-playbook -i inventory/<inventory-name-per-playbook>/hosts.ini playbook/<playbook-name> -t <type-tags>
 ```
