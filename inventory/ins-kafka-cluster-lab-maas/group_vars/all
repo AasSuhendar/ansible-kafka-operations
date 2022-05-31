@@ -1,0 +1,10 @@
+kafka_admin_username: admin
+kafka_admin_password: adminPass
+
+kafka_user: user1
+kafka_pass: user1Pass
+
+kafka_path: /opt/kafka
+
+new_kafka_user_username: user2
+new_kafka_user_password: user2Pass
