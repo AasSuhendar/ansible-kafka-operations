@@ -1,0 +1,8 @@
+---
+- include: facts.yml
+
+- include: kafka_user_list.yml
+  tags: kafka_user_list
+
+- include: kafka_user_create.yml
+  tags: kafka_user_create

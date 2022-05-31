@@ -1,0 +1,28 @@
+---
+- name: "Check if auth file exists"
+  stat:
+    path: "{{ kafka_path }}/config/ansible-auth-{{kafka_user}}.properties"
+  register: file
+
+- name: Setup New config file for auth user
+  template:
+    src: auth.properties.j2
+    dest: "{{ kafka_path }}/config/ansible-auth-{{kafka_user}}.properties"
+    mode: 0644
+    owner: kafka
+    group: kafka
+  when: not file.stat.exists
+
+- name: Check Kafka List Topic
+  command: "{{kafka_path}}/bin/kafka-topics.sh --list --bootstrap-server localhost:9093 --command-config {{kafka_path}}/config/ansible-auth-{{kafka_user}}.properties"
+  register: kafka_topic
+
+- name: Describe Kafka Topic
+  command: "{{kafka_path}}/bin/kafka-topics.sh --describe --topic {{item}} --bootstrap-server localhost:9093 --command-config {{kafka_path}}/config/ansible-auth-{{kafka_user}}.properties"
+  loop: "{{kafka_topic.stdout_lines}}"
+  register: kafka_describe_topic
+
+- name: Display Describe Kafka Topic owned by {{kafka_user}}
+  debug: 
+    var: item.stdout
+  loop: "{{kafka_describe_topic.results}}"

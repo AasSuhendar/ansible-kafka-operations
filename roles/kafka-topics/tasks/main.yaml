@@ -1,0 +1,8 @@
+---
+- include: facts.yml
+
+- include: kafka_topic_list.yml
+  tags: kafka_topic_list
+  
+- include: kafka_topic_describe.yml
+  tags: kafka_topic_describe

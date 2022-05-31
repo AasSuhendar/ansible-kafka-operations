@@ -1,0 +1,15 @@
+---
+# Basic provisioning
+- name: Playbook Kafka Operations
+  hosts: kafka
+  become: true
+  gather_facts: true
+  vars:
+    new_kafka_user_username: user2
+    new_kafka_user_password: user2Pass
+  roles:
+    - common
+    - kafka-topics
+    - kafka-acls
+    - kafka-users-scram
+  

@@ -1,0 +1,20 @@
+---
+- name: Display the debug kafka
+  debug: 
+    var: service_state.ansible_facts.services["kafka.service"].state
+
+- name: Display the debug zookeeper
+  debug: 
+    var: service_state.ansible_facts.services["zookeeper.service"].state
+
+- name: Check Path Kafka
+  shell: ls -alh {{kafka_path}}
+  register: kafka_path_file
+  when: service_state.ansible_facts.services["kafka.service"].state == "running"
+
+- name: Display Path Kafka
+  debug: 
+    var: kafka_path_file.stdout
+
+- name: Check Path Kafka
+  shell: id; whoami

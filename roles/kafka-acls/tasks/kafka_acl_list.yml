@@ -1,0 +1,8 @@
+---
+- name: Check Kafka List ACL
+  command: "{{kafka_path}}/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list"
+  register: kafka_acl_list
+
+- name: Display Kafka ACL List
+  debug: 
+    var: kafka_acl_list.stdout

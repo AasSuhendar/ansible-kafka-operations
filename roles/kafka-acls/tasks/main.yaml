@@ -1,0 +1,6 @@
+---
+- include: facts.yml
+
+- include: kafka_acl_list.yml
+  tags: kafka_acl_list
+  

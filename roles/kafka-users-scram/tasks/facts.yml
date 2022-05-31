@@ -1,0 +1,4 @@
+---
+- name: Check Service Facts on VM
+  service_facts:
+  register: service_state
