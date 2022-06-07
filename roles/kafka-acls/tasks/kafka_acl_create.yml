@@ -1,0 +1,20 @@
+---
+- name: Create Kafka ACL for {{acl.kafka_user}} with ACL type Producer
+  command: "{{kafka_path}}/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:{{acl.kafka_user}} --producer --topic {{acl.topic_name}} --resource-pattern-type prefixed --force"
+  when: acl.type == 'producer'
+  register: kafka_acl_create_producer
+
+- name: Create Kafka ACL for {{acl.kafka_user}} with ACL type Consumer
+  command: "{{kafka_path}}/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:{{acl.kafka_user}} --consumer --group '{{acl.group}}' --topic {{acl.topic_name}} --resource-pattern-type prefixed --force"
+  when: acl.type == 'consumer'
+  register: kafka_acl_create_consumer
+
+- name: Display Kafka ACL Status {{acl.kafka_user}} with ACL type Producer
+  debug: 
+    var: kafka_acl_create_producer.stdout
+  when: acl.type == 'producer'
+
+- name: Display Kafka ACL Status {{acl.kafka_user}} with ACL type Consumer
+  debug: 
+    var: kafka_acl_create_consumer.stdout
+  when: acl.type == 'consumer'

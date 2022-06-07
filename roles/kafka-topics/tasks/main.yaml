@@ -6,3 +6,9 @@
   
 - include: kafka_topic_describe.yml
   tags: kafka_topic_describe
+
+- include: kafka_topic_create.yml
+  tags: kafka_topic_create
+
+- include: kafka_topic_remove.yml
+  tags: kafka_topic_remove

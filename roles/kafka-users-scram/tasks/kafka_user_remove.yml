@@ -1,0 +1,27 @@
+---
+- name: "Check if auth file exists"
+  stat:
+    path: "{{ kafka_path }}/config/ansible-auth-{{kafka_admin_username}}.properties"
+  register: file
+
+- name: Setup New config file for auth user
+  template:
+    src: auth.properties.j2
+    dest: "{{ kafka_path }}/config/ansible-auth-{{kafka_admin_username}}.properties"
+    mode: 0644
+    owner: kafka
+    group: kafka
+  when: not file.stat.exists
+
+- name: Remove Kafka User {{deleted_kafka_username}}
+  command: "{{kafka_path}}/bin/kafka-configs.sh --bootstrap-server localhost:9092 --alter --delete-config 'SCRAM-SHA-256,SCRAM-SHA-512' --entity-type users --entity-name {{deleted_kafka_username}} --command-config {{kafka_path}}/config/ansible-auth-{{kafka_admin_username}}.properties"
+  register: kafka_user_removed
+
+- name: Display Kafka User Created
+  debug: 
+    var: kafka_user_removed.stdout
+
+- name: Remove Kafka User Propeties
+  file: 
+    path: "{{kafka_path}}/config/ansible-auth-{{deleted_kafka_username}}.properties"
+    state: absent

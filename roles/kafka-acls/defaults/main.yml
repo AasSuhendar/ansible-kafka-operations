@@ -6,5 +6,16 @@ node_ip: "{{ ansible_default_ipv4.address }}"
 kafka_path: /opt/kafka
 
 kafka_admin_username: admin
-
 kafka_admin_password: adminPass
+
+acl : {
+  kafka_user: user1,
+  type: producer,
+  topic_name: indicar-v1-,
+  group: indicar-consumers-
+}
+
+acl_search : {
+  topic_name: indicar-v1-,
+  resource_pattern: prefixed
+}

@@ -13,9 +13,17 @@
     group: kafka
   when: not file.stat.exists
 
-- name: Create Kafka User {{new_kafka_user_username}}ß
+- name: Create Kafka User {{new_kafka_user_username}}
   command: "{{kafka_path}}/bin/kafka-configs.sh --bootstrap-server localhost:9092 --alter --add-config 'SCRAM-SHA-256=[password={{new_kafka_user_password}}],SCRAM-SHA-512=[password={{new_kafka_user_password}}]' --entity-type users --entity-name {{new_kafka_user_username}} --command-config {{kafka_path}}/config/ansible-auth-{{kafka_admin_username}}.properties"
   register: kafka_user_created
+
+- name: Setup New config file for auth user {{new_kafka_user_username}}
+  template:
+    src: auth.properties.j2
+    dest: "{{ kafka_path }}/config/ansible-auth-{{new_kafka_user_username}}.properties"
+    mode: 0644
+    owner: kafka
+    group: kafka
 
 - name: Display Kafka User Created
   debug: 

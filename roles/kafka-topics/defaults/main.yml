@@ -5,6 +5,11 @@ node_ip: "{{ ansible_default_ipv4.address }}"
 # Default for Kafka Path
 kafka_path: /opt/kafka
 
-kafka_user: admin
+kafka_admin_username: admin
+kafka_admin_password: adminPass
 
+kafka_user: admin
 kafka_pass: adminPass
+
+new_topic_name: new-topic
+delete_topic_name: topic 

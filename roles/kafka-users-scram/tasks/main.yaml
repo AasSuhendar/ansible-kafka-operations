@@ -6,3 +6,6 @@
 
 - include: kafka_user_create.yml
   tags: kafka_user_create
+
+- include: kafka_user_remove.yml
+  tags: kafka_user_remove

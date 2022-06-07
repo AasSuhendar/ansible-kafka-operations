@@ -3,4 +3,9 @@
 
 - include: kafka_acl_list.yml
   tags: kafka_acl_list
-  
+
+- include: kafka_acl_create.yml
+  tags: kafka_acl_create
+
+- include: kafka_acl_remove.yml
+  tags: kafka_acl_remove

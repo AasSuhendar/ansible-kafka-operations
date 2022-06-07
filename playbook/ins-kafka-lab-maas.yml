@@ -5,8 +5,29 @@
   become: true
   gather_facts: true
   vars:
-    new_kafka_user_username: user2
-    new_kafka_user_password: user2Pass
+    new_kafka_user_username: logeedistr
+    new_kafka_user_password: logeedistr-Pass
+
+    deleted_kafka_username: logeedistr
+
+    new_topic_name: logee-logee-inbok
+    deleted_topic_name: test-topic-cmak
+
+    # kafka_user: logeedistr
+    # kafka_pass: logeedistr-Pass
+    kafka_user: admin
+    kafka_pass: adminPass
+
+    acl : {
+      kafka_user: user1,
+      topic_name: indicar-v1-,
+      type: consumer,
+      group: indicar-consumers-
+    }
+    acl_search : {
+      # topic_name: logeedistr-,
+      # resource_pattern: prefixed
+    }
   roles:
     - common
     - kafka-topics

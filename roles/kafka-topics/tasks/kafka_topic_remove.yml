@@ -1,0 +1,22 @@
+---
+- name: "Check if auth file exists"
+  stat:
+    path: "{{ kafka_path }}/config/ansible-auth-{{kafka_admin_username}}.properties"
+  register: file
+
+- name: Setup New config file for auth user
+  template:
+    src: auth.properties.j2
+    dest: "{{ kafka_path }}/config/ansible-auth-{{kafka_admin_username}}.properties"
+    mode: 0644
+    owner: kafka
+    group: kafka
+  when: not file.stat.exists
+
+- name: Remove Kafka Topic
+  command: "{{kafka_path}}/bin/kafka-topics.sh --delete --topic {{deleted_topic_name}} --bootstrap-server localhost:9093 --command-config {{kafka_path}}/config/ansible-auth-{{kafka_admin_username}}.properties"
+  register: kafka_topic
+
+- name: Display Kafka Topic owned by {{kafka_user}}
+  debug: 
+    var: kafka_topic.stdout

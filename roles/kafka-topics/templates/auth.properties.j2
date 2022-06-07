@@ -1,7 +1,13 @@
 # configure user pass for security
 sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required \
+{% if delete_topic_name is defined %}
+  username={{kafka_admin_username}} \
+  password={{kafka_admin_password}};
+{% else %}
   username={{kafka_user}} \
   password={{kafka_pass}};
+{% endif %}
+  
 
 # configure sasl mechanism
 sasl.mechanism=SCRAM-SHA-256

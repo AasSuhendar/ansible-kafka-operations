@@ -1,8 +1,21 @@
 ---
-- name: Check Kafka List ACL
+- name: Check Kafka List ACL All
   command: "{{kafka_path}}/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list"
+  when: acl_search.topic_name is undefined
   register: kafka_acl_list
+
+- name: Check Kafka List ACL by Topic {{acl_search.topic_name}}
+  command: "{{kafka_path}}/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list --topic '{{acl_search.topic_name}}' --resource-pattern-type {{acl_search.resource_pattern}}"
+  when: acl_search.topic_name is defined
+  register: kafka_acl_list_filter
 
 - name: Display Kafka ACL List
   debug: 
     var: kafka_acl_list.stdout
+  when: acl_search.topic_name is undefined
+
+- name: Display Kafka ACL List by Topic {{acl_search.topic_name}}
+  debug: 
+    var: kafka_acl_list_filter.stdout
+  when: acl_search.topic_name is defined
+  
