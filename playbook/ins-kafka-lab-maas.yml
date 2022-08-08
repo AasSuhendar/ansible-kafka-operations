@@ -11,12 +11,12 @@
     deleted_kafka_username: logeedistr
 
     new_topic_name: logee-logee-inbok
-    deleted_topic_name: test-topic-cmak
+    # deleted_topic_name: test-topic-cmak
 
-    # kafka_user: logeedistr
-    # kafka_pass: logeedistr-Pass
-    kafka_user: admin
-    kafka_pass: adminPass
+    kafka_user: logeedistr
+    kafka_pass: logeedistr-Pass
+    # kafka_user: admin
+    # kafka_pass: adminPass
 
     acl : {
       kafka_user: user1,

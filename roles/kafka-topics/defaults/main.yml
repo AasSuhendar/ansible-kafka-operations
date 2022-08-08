@@ -12,4 +12,3 @@ kafka_user: admin
 kafka_pass: adminPass
 
 new_topic_name: new-topic
-delete_topic_name: topic 

@@ -1,16 +1,16 @@
 # configure user pass for security
 sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required \
 {% if new_kafka_user_username is defined %}
-  username={{new_kafka_user_username}} \
-  password={{new_kafka_user_password}};
+  username="{{new_kafka_user_username}}" \
+  password="{{new_kafka_user_password}}";
 {% else %}
-  username={{kafka_admin_username}} \
-  password={{kafka_admin_password}};
+  username="{{kafka_admin_username}}" \
+  password="{{kafka_admin_password}}";
 {% endif %}
 
 
 # configure sasl mechanism
-sasl.mechanism=SCRAM-SHA-256
+sasl.mechanism=SCRAM-SHA-512
 
 # configure security protocol
 security.protocol=SASL_PLAINTEXT
